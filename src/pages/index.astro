@@ -1,5 +1,6 @@
 ---
 import "../styles/global.css";
+import Navigation from "../components/Navigation.astro";
 const pageTitle = "欢迎来到我的博客"
 ---
 
@@ -31,11 +32,8 @@ const pageTitle = "欢迎来到我的博客"
     </style>
 </head>
 <body>
+    <Navigation/>
     <h1>欢迎来到我的博客</h1>
     <p>欢迎来到我的个人博客！在这里我分享我的学习和生活经验。</p>
-    <nav>
-        <a href="/about">关于我</a>
-        <a href="/blog">博客文章</a>
-    </nav>
 </body>
 </html>
