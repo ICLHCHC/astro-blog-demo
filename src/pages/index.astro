@@ -1,39 +1,41 @@
 ---
 import "../styles/global.css";
 import Navigation from "../components/Navigation.astro";
-const pageTitle = "欢迎来到我的博客"
+import Footer from "../components/Footer.astro";
+const pageTitle = "欢迎来到我的博客";
 ---
 
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{pageTitle}</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #f0f0f0;
-            color: #333;
-            padding: 20px;
-            text-align: center;
-        }
-        h1 {
-            color: #4CAF50;
-        }
-        nav {
-            margin-top: 20px;
-        }
-        a {
-            margin: 0 15px;
-            text-decoration: none;
-            color: #4CAF50;
-        }
-    </style>
-</head>
-<body>
-    <Navigation/>
-    <h1>欢迎来到我的博客</h1>
-    <p>欢迎来到我的个人博客！在这里我分享我的学习和生活经验。</p>
-</body>
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>{pageTitle}</title>
+        <style>
+            body {
+                font-family: Arial, sans-serif;
+                background-color: #f0f0f0;
+                color: #333;
+                padding: 20px;
+                text-align: center;
+            }
+            h1 {
+                color: #4caf50;
+            }
+            nav {
+                margin-top: 20px;
+            }
+            a {
+                margin: 0 15px;
+                text-decoration: none;
+                color: #4caf50;
+            }
+        </style>
+    </head>
+    <body>
+        <Navigation />
+        <h1>{pageTitle}</h1>
+        <p>欢迎来到我的个人博客！在这里我分享我的学习和生活经验。</p>
+        <Footer/>
+    </body>
 </html>
