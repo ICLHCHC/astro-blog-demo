@@ -11,6 +11,10 @@ const pageTitle = "关于我";
 const happy = true;
 const finished = true;
 const goal = 3;
+
+const skillColor = "navy";
+const fontWeight = "900";
+const textCase = "uppercase";
 ---
 
 <!doctype html>
@@ -19,7 +23,7 @@ const goal = 3;
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <title>{pageTitle}</title>
-        <style>
+        <style define:vars={{skillColor, fontWeight, textCase}}>
             body {
                 font-family: Arial, sans-serif;
                 background-color: #f0f0f0;
@@ -27,7 +31,13 @@ const goal = 3;
                 padding: 20px;
             }
             h1 {
-                color: #4caf50;
+                color: purple;
+                font-size: 3rem;
+            }
+            .skill {
+                color: var(--skillColor);
+                font-weight: var(--fontWeight);
+                text-transform: var(--textCase);
             }
         </style>
     </head>
@@ -59,7 +69,7 @@ const goal = 3;
         </ul>
         <p>我的技能是：</p>
         <ul>
-            {skills.map((skill) => <li>{skill}</li>)}
+            {skills.map((skill) => <li class="skill">{skill}</li>)}
         </ul>
         {happy && <p>我非常乐意学习 Astro！</p>}
 
