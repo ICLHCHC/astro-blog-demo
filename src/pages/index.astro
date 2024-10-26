@@ -1,8 +1,12 @@
 ---
+import Greeting from '../components/Greeting';
 import BaseLayout from '../layouts/BaseLayout.astro';
 const pageTitle = "我的首页";
 ---
 <BaseLayout pageTitle={pageTitle}>
   <h2>My awesome blog subtitle</h2>
+  <!-- <Greeting messages={["Hi", "Hello", "Howdy", "Hey there"]}></Greeting> -->
+  <!-- client:load 指令告诉 Astro 在页面加载时将其 JavaScript 发送并重新运行到客户端上，使组件可交互。这称为 被 Hydrate 的 组件。 -->
+  <Greeting client:load messages={["Hej", "Hallo", "Hola", "Habari"]} />
   <p>欢迎来到我的个人博客！在这里我分享我的学习和生活经验。</p>
 </BaseLayout>
