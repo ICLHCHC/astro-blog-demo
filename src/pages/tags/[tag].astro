@@ -4,27 +4,42 @@ import BaseLayout from "../../layouts/BaseLayout.astro";
 // getStaticPaths 的主要功能是定义在构建时需要生成的所有动态路由。例如，当你有一系列博客文章、产品页面或其他需要动态生成的内容时，你可以使用这个函数来指定所有可能的路径。
 export async function getStaticPaths() {
     const allPosts = await Astro.glob("../posts/*.md");
+    // 获取所有博客的标签
+    // 1. allPosts.map((post) => post.frontmatter.tags)
+    //      遍历 allPosts 数组，提取每篇文章的 frontmatter.tags 属性。这是一个包含多个标签的数组。
+    //  2. .flat() 方法用于将多维数组“扁平化”。因为每篇文章的 tags 是数组，所以调用 flat() 可以将所有标签合并成一个单一的数组。
+    //  3. Set 是一个 JavaScript 内置对象，用于存储唯一值。将扁平化后的标签数组传入 Set 中，可以自动去除重复的标签。
+    // 4. [...new Set(...)] 最后，使用扩展运算符 ... 将 Set 转换回一个数组，以便后续使用。
+    const uniqueTags = [
+        ...new Set(allPosts.map((post) => post.frontmatter.tags).flat()),
+    ];
     // getStaticPaths 应返回一个数组，其中每个对象都有一个 params 属性，该属性包含生成路径所需的参数。
     // params 对象包含动态路由的参数。tag 是动态参数，用于生成不同的页面。
     // props 对象用于传递数据给页面组件。posts 是一个包含所有博客文章的数组
-    return [
-        { params: { tag: "astro" }, props: { posts: allPosts } },
-        { params: { tag: "successes" }, props: { posts: allPosts } },
-        { params: { tag: "community" }, props: { posts: allPosts } },
-        { params: { tag: "blogging" }, props: { posts: allPosts } },
-        { params: { tag: "setbacks" }, props: { posts: allPosts } },
-        { params: { tag: "learning in public" }, props: { posts: allPosts } },
-    ];
+    return uniqueTags.map((tag) => {
+        const filteredPosts = allPosts.filter((post) =>
+            post.frontmatter.tags.includes(tag),
+        ); // 使用 filter() 方法从 allPosts 中筛选出所有包含当前标签的文章。
+        return { // 返回每个标签对应的路由，及对应文章列表
+            params: { tag },
+            props: { posts: filteredPosts },
+        };
+    });
 }
 
 const { tag } = Astro.params;
 const { posts } = Astro.props;
-const filteredPosts = posts.filter((post) => post.frontmatter.tags?.includes(tag));
 ---
 
 <BaseLayout pageTitle={tag}>
     <p>包含「{tag}」标签的文章</p>
     <ul>
-        {filteredPosts.map((post) => <li><a href={post.url}>{post.frontmatter.title}</a></li>)}
-      </ul>
+        {
+            posts.map((post) => (
+                <li>
+                    <a href={post.url}>{post.frontmatter.title}</a>
+                </li>
+            ))
+        }
+    </ul>
 </BaseLayout>
